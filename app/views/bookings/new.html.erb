@@ -1,0 +1,7 @@
+
+
+<%= simple_form_for [@project, @booking] do |f| %>
+  <%= f.input :comment %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.submit %>
+<% end %>

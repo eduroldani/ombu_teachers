@@ -1,0 +1,14 @@
+<h1>Hello this is your profile: <%= current_user.first_name %></h1>
+
+
+<h2>here are your bookings:</h2>
+
+
+<% Booking.where(user_id: current_user.id).each do |booking|%>
+  <ul class="border shadow m-1">
+    <li>Project ID: <%= booking.id %></li>
+    <li>Teacher: <%= booking.user.first_name %></li>
+    <li>Title: <%= booking.project.title %></li>
+    <li>Comment: <%= booking.comment %></li>
+  </ul>
+<% end %>

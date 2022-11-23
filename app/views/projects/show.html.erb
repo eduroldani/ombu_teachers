@@ -1,17 +1,31 @@
 
 
-<h1>Show Page</h1>
 
-<%= @project.title %>
 
-<%= @project.description %>
 
-<%= @project.skills %>
+
+      <% if @project.photo.attached? %>
+          <%= cl_image_tag @project.photo.key, class: "d-block w-100" %>
+        <% else %>
+          <%= image_tag("project.jpg", class: "d-block w-100")
+      %>
+      <% end %>
+
+<br>
+
+<h1><%= @project.title %></h1>
+
+<h2><%= @project.description %>
+</h2>
+
+<p><%= @project.skills %></p>
+
+<%= link_to "Book a project", new_project_booking_path(@project) %>
+
 
 <h2>Created by</h2>
 
-<%= User.find(@project.user_id).first_name %>
+<p><%= User.find(@project.user_id).first_name %></p>
 
-<br>
 
 <%= link_to "Back", projects_path %>

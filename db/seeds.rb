@@ -9,15 +9,27 @@
 
 puts "Running Seeds"
 
-User.destroy_all
+# User.destroy_all
+10.times do
 
-user = User.new(email: "email@email.com", password: "secret", first_name: "Test User", last_name: "last Name", is_teacher: true)
+  user = User.create(email: Faker::Internet.email, password: "secret", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_teacher: true)
 
+end
+# user.save!
 
-user.save!
+# puts user.id
 
-puts user.id
+# user = User.first
 
-project = Project.create(title: "Scrath", description: "Bla Bla", skills: "New things", user_id: user.id)
+puts "Deleting Projects"
+
+Project.destroy_all
+
+10.times do
+
+  user = User.all[rand(10)]
+  Project.create(title: Faker::Hobby.activity, description: Faker::Lorem.paragraph, skills: Faker::Lorem.paragraph, user_id: user.id, address: Faker::Address.country)
+
+end
 
 puts "Finishing Seeds"
