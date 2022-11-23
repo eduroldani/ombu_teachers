@@ -3,6 +3,8 @@ class BookingsController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
     @booking = Booking.new
+    authorize @booking
+
   end
 
   def create
@@ -10,6 +12,8 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @project = Project.find(params[:project_id])
     @booking.project = @project
+    authorize @booking
+
     if @booking.save!
       redirect_to profile_path(current_user)
     else

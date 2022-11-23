@@ -1,9 +1,6 @@
 
 
 
-
-
-
       <% if @project.photo.attached? %>
           <%= cl_image_tag @project.photo.key, class: "d-block w-100" %>
         <% else %>
@@ -21,6 +18,12 @@
 <p><%= @project.skills %></p>
 
 <%= link_to "Book a project", new_project_booking_path(@project) %>
+
+
+
+<% if policy(@project).destroy? %>
+  <%= link_to "Delete project", project_path(@project) ,data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<% end %>
 
 
 <h2>Created by</h2>
