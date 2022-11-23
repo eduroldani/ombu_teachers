@@ -1,0 +1,30 @@
+<h1>Here all the Projects</h1>
+
+<h2>Logged as: <%= current_user.first_name %> | Teacher? <%= current_user.is_teacher %></h2>
+
+
+
+
+
+
+<div class="cards">
+
+        <% @projects.each do |project| %>
+          <div class="card" style="width: 18rem;">
+            <%= image_tag("project.jpg", alt: "Edit Entry") %>
+            <div class="card-body">
+              <h5 class="card-title"><%= project.title  %></h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <%= link_to("See More", project_path(project), class: "btn btn-primary") %>
+            </div>
+          </div>
+        <% end %>
+
+</div>
+
+
+
+
+<% if current_user.is_teacher %>
+  <%= link_to("New Project", new_project_path , class: "btn btn-alert") %>
+<% end %>

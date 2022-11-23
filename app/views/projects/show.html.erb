@@ -1,0 +1,17 @@
+
+
+<h1>Show Page</h1>
+
+<%= @project.title %>
+
+<%= @project.description %>
+
+<%= @project.skills %>
+
+<h2>Created by</h2>
+
+<%= User.find(@project.user_id).first_name %>
+
+<br>
+
+<%= link_to "Back", projects_path %>
