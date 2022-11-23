@@ -1,21 +1,9 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.all
 
-    @markers = @projects.geocoded.map do |project|
-      {
-        lat: project.latitude,
-        lng: project.longitude
-      }
-    end
-  end
-
-
-
-  def index
     if params[:query].present?
-        @projects = Project.search_by_title(params[:query])
+        @projects = policy_scope(Project).search_by_title(params[:query])
         @markers = @projects.geocoded.map do |project|
           {
             lat: project.latitude,
@@ -23,7 +11,7 @@ class ProjectsController < ApplicationController
           }
         end
     else
-        @projects = Project.all
+         @projects = policy_scope(Project).all
         @markers = @projects.geocoded.map do |project|
           {
             lat: project.latitude,
@@ -36,23 +24,31 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    authorize @project
   end
 
   def new
     @project = Project.new
+    authorize @project
   end
 
   def create
     @project = Project.new(project_params)
     if @project.save!
+      authorize @project
+
       redirect_to projects_path
     else
-      redirect_to new_project_path
+      render :new, status: :unprocessable_entity
     end
   end
 
 
   def destroy
+    @project = Project.find(params[:id])
+    authorize @project
+    @project.destroy
+    redirect_to projects_path
 
   end
 
